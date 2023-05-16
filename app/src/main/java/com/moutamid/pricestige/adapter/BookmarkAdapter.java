@@ -35,9 +35,9 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public void onBindViewHolder(@NonNull BookmarkVH holder, int position) {
         BookmarkModel model = list.get(holder.getAdapterPosition());
 
-        holder.price.setText(model.getPrice());
-        holder.from.setText(model.getFrom());
-        holder.name.setText(model.getTitle());
+        holder.price.setText("Price : " + model.getPrice());
+        holder.from.setText("From : " + model.getFrom());
+        holder.name.setText("Name : " + model.getTitle().toUpperCase());
 
         Glide.with(context).load(model.getImage()).into(holder.imageView);
 
