@@ -121,7 +121,8 @@ public class HomeFragment extends Fragment {
                                         array.getJSONObject(i).getBoolean("buy_it_now"),
                                         array.getJSONObject(i).getBoolean("free_returns"),
                                         array.getJSONObject(i).getBoolean("sponsored"),
-                                        array.getJSONObject(i).getJSONObject("price").getString("raw")
+                                        array.getJSONObject(i).getJSONObject("price").getString("raw"),
+                                        finalItem
                                 );
                                 list.add(model);
                         }

@@ -28,6 +28,7 @@ public class Constants {
     static Dialog dialog;
     public static final String USER = "user";
     public static final String Result = "Result";
+    public static final String model = "model";
     public static final String amazon = "https://api.rainforestapi.com/request?api_key=D69F20A5195B4C44A338FD72E60457BA&type=search&amazon_domain=amazon.com&search_term=";
     public static final String ebay = "https://api.countdownapi.com/request?api_key=72F6C12E3FBC44DB89EB34A9508BD7E2&ebay_domain=ebay.com&search_term="; // memory+cards&type=search\n
     public static final String ebayProduct = "https://api.countdownapi.com/request?api_key=72F6C12E3FBC44DB89EB34A9508BD7E2&type=product&epid="; // memory+cards&type=search\n

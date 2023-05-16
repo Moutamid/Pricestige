@@ -1,6 +1,7 @@
 package com.moutamid.pricestige.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.fxn.stash.Stash;
 import com.moutamid.pricestige.R;
+import com.moutamid.pricestige.SearchActivity;
+import com.moutamid.pricestige.constant.Constants;
 import com.moutamid.pricestige.model.ItemModel;
 
 import java.util.ArrayList;
@@ -36,6 +40,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
         Glide.with(context).load(model.getImage()).into(holder.imageView);
         holder.name.setText(model.getTitle());
+
+        holder.itemView.setOnClickListener(v -> {
+            Stash.put("na", model.getSearchedName());
+            Stash.put(Constants.model, model);
+            context.startActivity(new Intent(context, SearchActivity.class));
+        });
 
     }
 

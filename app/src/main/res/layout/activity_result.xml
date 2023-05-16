@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".ResultActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12sp"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:text="Search Result"
+        android:fontFamily="@font/poppins" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

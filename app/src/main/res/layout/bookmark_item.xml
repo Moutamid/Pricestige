@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="12sp"
     app:cardCornerRadius="6sp"
     app:strokeWidth="0sp"
-    app:cardBackgroundColor="@color/white"
-    android:layout_margin="6sp"
-    app:cardElevation="6sp">
+    app:cardElevation="6sp"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,14 +30,45 @@
 
         </androidx.cardview.widget.CardView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12sp"
-            android:textColor="@color/black"
+            android:padding="12sp"
             android:fontFamily="@font/poppins"
-            android:layout_marginEnd="12sp" />
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12sp"
+            android:fontFamily="@font/poppins"
+            android:text="Price : $800" />
+
+        <TextView
+            android:id="@+id/from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12sp"
+            android:fontFamily="@font/poppins"
+            android:text="From Amazon" />
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/bookmark"
+            android:layout_width="28sp"
+            android:layout_height="28sp"
+            android:layout_gravity="top"
+            android:src="@drawable/ic_bookmark_border"/>
 
     </LinearLayout>
 
