@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     ArrayList<ItemModel> list;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment {
         Constants.initDialog(requireContext());
 
         binding.search.setOnClickListener(v -> {
-            if (binding.etSearch.getEditText().getText().toString().isEmpty()){
+            if (binding.etSearch.getEditText().getText().toString().isEmpty()) {
                 Toast.makeText(requireContext(), "Search Item is empty", Toast.LENGTH_SHORT).show();
             } else {
                 Constants.showDialog();
@@ -59,9 +60,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void getData(String item) {
-
+        String finalName = item;
         item = Constants.ebayLink(item);
-
         String finalItem = item;
 
         Log.d("TAGDATA", "finalItem: " + finalItem);
@@ -109,22 +109,22 @@ public class HomeFragment extends Fragment {
                         JSONObject object = new JSONObject(htmlData);
                         JSONArray array = object.getJSONArray("search_results");
 
-                        for (int i=0; i<array.length(); i++) {
-                                ItemModel model = new ItemModel(
-                                        array.getJSONObject(i).getInt("position"),
-                                        array.getJSONObject(i).getString("title"),
-                                        array.getJSONObject(i).getString("epid"),
-                                        array.getJSONObject(i).getString("link"),
-                                        array.getJSONObject(i).getString("image"),
-                                        array.getJSONObject(i).getString("condition"),
-                                        array.getJSONObject(i).getBoolean("is_auction"),
-                                        array.getJSONObject(i).getBoolean("buy_it_now"),
-                                        array.getJSONObject(i).getBoolean("free_returns"),
-                                        array.getJSONObject(i).getBoolean("sponsored"),
-                                        array.getJSONObject(i).getJSONObject("price").getString("raw"),
-                                        finalItem
-                                );
-                                list.add(model);
+                        for (int i = 0; i < array.length(); i++) {
+                            ItemModel model = new ItemModel(
+                                    array.getJSONObject(i).getInt("position"),
+                                    array.getJSONObject(i).getString("title"),
+                                    array.getJSONObject(i).getString("epid"),
+                                    array.getJSONObject(i).getString("link"),
+                                    array.getJSONObject(i).getString("image"),
+                                    array.getJSONObject(i).getString("condition"),
+                                    array.getJSONObject(i).getBoolean("is_auction"),
+                                    array.getJSONObject(i).getBoolean("buy_it_now"),
+                                    array.getJSONObject(i).getBoolean("free_returns"),
+                                    array.getJSONObject(i).getBoolean("sponsored"),
+                                    array.getJSONObject(i).getJSONObject("price").getString("raw"),
+                                    finalName
+                            );
+                            list.add(model);
                         }
                         Constants.dismissDialog();
                         Stash.put(Constants.Result, list);
