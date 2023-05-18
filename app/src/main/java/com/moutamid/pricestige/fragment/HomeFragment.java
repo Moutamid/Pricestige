@@ -110,21 +110,25 @@ public class HomeFragment extends Fragment {
                         JSONArray array = object.getJSONArray("search_results");
 
                         for (int i = 0; i < array.length(); i++) {
-                            ItemModel model = new ItemModel(
-                                    array.getJSONObject(i).getInt("position"),
-                                    array.getJSONObject(i).getString("title"),
-                                    array.getJSONObject(i).getString("epid"),
-                                    array.getJSONObject(i).getString("link"),
-                                    array.getJSONObject(i).getString("image"),
-                                    array.getJSONObject(i).getString("condition"),
-                                    array.getJSONObject(i).getBoolean("is_auction"),
-                                    array.getJSONObject(i).getBoolean("buy_it_now"),
-                                    array.getJSONObject(i).getBoolean("free_returns"),
-                                    array.getJSONObject(i).getBoolean("sponsored"),
-                                    array.getJSONObject(i).getJSONObject("price").getString("raw"),
-                                    finalName
-                            );
-                            list.add(model);
+                            try {
+                                ItemModel model = new ItemModel(
+                                        array.getJSONObject(i).getInt("position"),
+                                        array.getJSONObject(i).getString("title"),
+                                        array.getJSONObject(i).getString("epid"),
+                                        array.getJSONObject(i).getString("link"),
+                                        array.getJSONObject(i).getString("image"),
+                                        array.getJSONObject(i).getString("condition"),
+                                        array.getJSONObject(i).getBoolean("is_auction"),
+                                        array.getJSONObject(i).getBoolean("buy_it_now"),
+                                        array.getJSONObject(i).getBoolean("free_returns"),
+                                        array.getJSONObject(i).getBoolean("sponsored"),
+                                        array.getJSONObject(i).getJSONObject("price").getString("raw"),
+                                        finalName
+                                );
+                                list.add(model);
+                            }  catch (JSONException error) {
+                                Log.d("TAGDATA", "Error : " + error.getMessage());
+                            }
                         }
                         Constants.dismissDialog();
                         Stash.put(Constants.Result, list);

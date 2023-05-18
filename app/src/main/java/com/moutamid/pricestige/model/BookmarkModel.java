@@ -1,15 +1,24 @@
 package com.moutamid.pricestige.model;
 
 public class BookmarkModel {
-    String title, price, from, image;
+    String id, title, price, from, image;
     boolean book;
 
-    public BookmarkModel(String title, String price, String from, String image, boolean book) {
+    public BookmarkModel(String id, String title, String price, String from, String image, boolean book) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.from = from;
         this.image = image;
         this.book = book;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
