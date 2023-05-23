@@ -1,6 +1,8 @@
 package com.moutamid.pricestige.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +75,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
                 holder.bookmark.setImageResource(R.drawable.ic_bookmark_check);
                 holder.isBookmarked = true;
             }
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(model.getLink()));
+            context.startActivity(i);
         });
 
     }

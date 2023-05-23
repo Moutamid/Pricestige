@@ -49,7 +49,6 @@ public class EditProfileActivity extends AppCompatActivity {
             Constants.showDialog();
             Map<String, Object> map = new HashMap<>();
             map.put("name", binding.name.getText().toString());
-            map.put("username", binding.username.getText().toString());
             map.put("phoneNumber", binding.phone.getText().toString());
 
             Constants.databaseReference().child(Constants.USER).child(Constants.auth().getCurrentUser().getUid())
