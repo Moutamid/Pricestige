@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
             try {
                 in = new BufferedReader(new InputStreamReader(google != null ? google.openStream() : null));
             } catch (final IOException e) {
-                Log.d("TAG", "compress: ERROR: " + e);
+                Log.d("TAGDATA", "compress: ERROR: " + e);
                 e.printStackTrace();
             }
             String input = null;
@@ -121,7 +121,8 @@ public class HomeFragment extends Fragment {
                                         array.getJSONObject(i).getBoolean("is_auction"),
                                         array.getJSONObject(i).getBoolean("buy_it_now"),
                                         array.getJSONObject(i).getBoolean("free_returns"),
-                                        array.getJSONObject(i).getBoolean("sponsored"),
+                                       false,
+                                       // array.getJSONObject(i).getBoolean("sponsored"),
                                         array.getJSONObject(i).getJSONObject("price").getString("raw"),
                                         finalName
                                 );
@@ -135,7 +136,7 @@ public class HomeFragment extends Fragment {
                         startActivity(new Intent(requireContext(), ResultActivity.class));
                     } catch (JSONException error) {
                         Constants.dismissDialog();
-                        Log.d("TAGDATA", "Error : " + error.getMessage());
+                        Log.d("TAGDATA", " Catch Error : " + error.getMessage());
                         Toast.makeText(requireActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
