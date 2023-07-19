@@ -13,6 +13,7 @@ import com.moutamid.pricestige.databinding.ActivityResultBinding;
 import com.moutamid.pricestige.model.ItemModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ResultActivity extends AppCompatActivity {
     ActivityResultBinding binding;
@@ -26,7 +27,7 @@ public class ResultActivity extends AppCompatActivity {
         binding.recycler.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<ItemModel> list = Stash.getArrayList(Constants.Result, ItemModel.class);
-
+        Collections.shuffle(list);
         SearchAdapter adapter = new SearchAdapter(this, list);
         binding.recycler.setAdapter(adapter);
 

@@ -30,6 +30,9 @@ public class Constants {
     public static final String Result = "Result";
     public static final String model = "model";
     public static final String bookList = "bookList";
+    public static final String X_RapidAPI_Key = "859da0f7f2msh2da6ad71dc8a05dp11d8ddjsnab86ff66f061";
+    public static final String X_RapidAPI_Host = "axesso-walmart-data-service.p.rapidapi.com";
+    public static final String walmart = "https://axesso-walmart-data-service.p.rapidapi.com/wlm/walmart-search-by-keyword?keyword="; //  keyword=Lego&page=1&sortBy=best_match
     public static final String amazon = "https://api.rainforestapi.com/request?api_key=D69F20A5195B4C44A338FD72E60457BA&type=search&amazon_domain=amazon.com&search_term=";
     public static final String ebay = "https://api.countdownapi.com/request?api_key=72F6C12E3FBC44DB89EB34A9508BD7E2&ebay_domain=ebay.com&search_term="; // memory+cards&type=search\n
     public static final String ebayProduct = "https://api.countdownapi.com/request?api_key=72F6C12E3FBC44DB89EB34A9508BD7E2&type=product&epid="; // memory+cards&type=search\n
@@ -53,6 +56,16 @@ public class Constants {
             item = item.replace(" ", "+");
         }
         return amazon + item;
+    }
+    public static String walmartLink(String item) {
+        if (item.contains(" ")){
+            item = item.replace(" ", "%20");
+        }
+        return walmart + item + "&page=1&sortBy=best_match";
+    }
+
+    public static String walmartProductLink(String item){
+        return "https://www.walmart.com" + item;
     }
 
     public static void initDialog(Context context){

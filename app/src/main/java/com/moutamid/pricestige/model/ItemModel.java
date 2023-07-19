@@ -5,23 +5,12 @@ public class ItemModel {
     String title, epid, link, image, condition;
     boolean is_auction, buy_it_now, free_returns, sponsored;
     String price;
-    String searchedName;
+    String searchedName, storeName;
 
-    public ItemModel(int position, String title, String epid, String link, String image, String condition, boolean is_auction, boolean buy_it_now, boolean free_returns, boolean sponsored, String price) {
-        this.position = position;
-        this.title = title;
-        this.epid = epid;
-        this.link = link;
-        this.image = image;
-        this.condition = condition;
-        this.is_auction = is_auction;
-        this.buy_it_now = buy_it_now;
-        this.free_returns = free_returns;
-        this.sponsored = sponsored;
-        this.price = price;
+    public ItemModel() {
     }
 
-    public ItemModel(int position, String title, String epid, String link, String image, String condition, boolean is_auction, boolean buy_it_now, boolean free_returns, boolean sponsored, String price, String searchedName) {
+    public ItemModel(int position, String title, String epid, String link, String image, String condition, boolean is_auction, boolean buy_it_now, boolean free_returns, boolean sponsored, String price, String searchedName, String storeName) {
         this.position = position;
         this.title = title;
         this.epid = epid;
@@ -34,6 +23,15 @@ public class ItemModel {
         this.sponsored = sponsored;
         this.price = price;
         this.searchedName = searchedName;
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getSearchedName() {

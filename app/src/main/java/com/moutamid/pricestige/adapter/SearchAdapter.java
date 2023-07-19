@@ -42,7 +42,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         holder.name.setText(model.getTitle());
 
         holder.itemView.setOnClickListener(v -> {
-            Stash.put("na", model.getSearchedName());
             Stash.put(Constants.model, model);
             context.startActivity(new Intent(context, SearchActivity.class));
         });

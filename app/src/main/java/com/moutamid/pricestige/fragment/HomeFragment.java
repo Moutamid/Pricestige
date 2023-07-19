@@ -12,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.fxn.stash.Stash;
-import com.moutamid.pricestige.R;
 import com.moutamid.pricestige.ResultActivity;
 import com.moutamid.pricestige.constant.Constants;
 import com.moutamid.pricestige.databinding.FragmentHomeBinding;
@@ -29,6 +33,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
@@ -63,6 +69,7 @@ public class HomeFragment extends Fragment {
         String finalName = item;
         item = Constants.ebayLink(item);
         String finalItem = item;
+        String walmart = Constants.walmartLink(finalName);
 
         Log.d("TAGDATA", "finalItem: " + finalItem);
 
@@ -112,7 +119,7 @@ public class HomeFragment extends Fragment {
                         for (int i = 0; i < array.length(); i++) {
                             try {
                                 ItemModel model = new ItemModel(
-                                        array.getJSONObject(i).getInt("position"),
+                                        i + 1,
                                         array.getJSONObject(i).getString("title"),
                                         array.getJSONObject(i).getString("epid"),
                                         array.getJSONObject(i).getString("link"),
@@ -121,27 +128,81 @@ public class HomeFragment extends Fragment {
                                         array.getJSONObject(i).getBoolean("is_auction"),
                                         array.getJSONObject(i).getBoolean("buy_it_now"),
                                         array.getJSONObject(i).getBoolean("free_returns"),
-                                       false,
-                                       // array.getJSONObject(i).getBoolean("sponsored"),
+                                        false,
+                                        // array.getJSONObject(i).getBoolean("sponsored"),
                                         array.getJSONObject(i).getJSONObject("price").getString("raw"),
-                                        finalName
+                                        finalName, "ebay"
                                 );
                                 list.add(model);
-                            }  catch (JSONException error) {
+                            } catch (JSONException error) {
                                 Log.d("TAGDATA", "Error : " + error.getMessage());
                             }
                         }
-                        Constants.dismissDialog();
+                        // Constants.dismissDialog();
                         Stash.put(Constants.Result, list);
-                        startActivity(new Intent(requireContext(), ResultActivity.class));
+                        //  startActivity(new Intent(requireContext(), ResultActivity.class));
+                        getWalmart(walmart, finalName);
                     } catch (JSONException error) {
-                        Constants.dismissDialog();
-                        Log.d("TAGDATA", " Catch Error : " + error.getMessage());
-                        Toast.makeText(requireActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        getWalmart(walmart, finalName);
                     }
                 });
             }
         }).start();
+    }
+
+    private void getWalmart(String walmart, String finalName) {
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("X-RapidAPI-Key", Constants.X_RapidAPI_Key);
+        headers.put("X-RapidAPI-Host", Constants.X_RapidAPI_Host);
+
+        Log.d("TAGDATA", walmart);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, walmart, null,
+                (Response.Listener<JSONObject>) response -> {
+                    try {
+                        JSONObject props = response.getJSONObject("item").getJSONObject("props");
+                        JSONObject searchResult = props.getJSONObject("pageProps").getJSONObject("initialData").getJSONObject("searchResult");
+                        JSONArray itemStacks = searchResult.getJSONArray("itemStacks");
+                        JSONArray items = itemStacks.getJSONObject(0).getJSONArray("items");
+                        ArrayList<ItemModel> arrayList = Stash.getArrayList(Constants.Result, ItemModel.class);
+                        for (int i = 0; i < items.length(); i++) {
+                            try {
+                                ItemModel model = new ItemModel(
+                                        arrayList.size() + 1,
+                                        items.getJSONObject(i).getString("name"),
+                                        items.getJSONObject(i).getString("usItemId"),
+                                        Constants.walmartProductLink(items.getJSONObject(i).getString("canonicalUrl")),
+                                        items.getJSONObject(i).getString("image"), "Brand New",
+                                        false, false, false, false,
+                                        items.getJSONObject(i).getJSONObject("priceInfo").getString("itemPrice"),
+                                        finalName, "Walmart"
+                                );
+                                arrayList.add(model);
+                            } catch (JSONException error) {
+                                Log.d("TAGDATA", "Error : " + error.getMessage());
+                            }
+                        }
+                        Constants.dismissDialog();
+                        Stash.put(Constants.Result, arrayList);
+                        startActivity(new Intent(requireContext(), ResultActivity.class));
+                    } catch (JSONException e) {
+                        // ...
+                        e.printStackTrace();
+                    }
+                },
+                (Response.ErrorListener) error -> {
+                    Constants.dismissDialog();
+//                    Stash.put(Constants.Result, list);
+//                    Toast.makeText(requireActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(requireContext(), ResultActivity.class));
+                    Log.d("TAGDATA", " Catch Error : " + error.getMessage());
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                return headers;
+            }
+        };
+        queue.add(request);
     }
 
 }

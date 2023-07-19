@@ -30,9 +30,8 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<BookmarkModel> list = new ArrayList<>();
 
         ItemModel model = (ItemModel) Stash.getObject(Constants.model, ItemModel.class);
-        String name = Stash.getString("na");
 
-        list.add(new BookmarkModel(model.getEpid(), name, model.getPrice(), "Ebay", model.getImage(), model.getLink(), false));
+        list.add(new BookmarkModel(model.getEpid(), model.getSearchedName(), model.getPrice(), model.getStoreName(), model.getImage(), model.getLink(), false));
 
         BookmarkAdapter adapter = new BookmarkAdapter(this, list);
         binding.recycler.setAdapter(adapter);
